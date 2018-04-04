@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+
+  video_dev:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    hostname: video
+    volumes:
+      - .:/content
+    environment:
+      - JWT_SECRET="JWTs are the best!"
+    ports:
+      - 8004:80
+
+  video_prod:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    hostname: video
+    volumes:
+      - /content:/content
+    environment:
+      - JWT_SECRET="JWTs are the best!"
+    ports:
+      - 8004:80

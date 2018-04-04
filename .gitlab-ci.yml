@@ -2,6 +2,7 @@ image: docker:latest
 
 variables:
   REPOSITORY_URL: 472016498400.dkr.ecr.sa-east-1.amazonaws.com/plix-videos
+  REGION: sa-east-1
 
 services:
 - docker:dind
@@ -14,7 +15,7 @@ stages:
 build:
   stage: build
   script:
-    - $(aws ecr get-login --no-include-email --region sa-east-1)
+    - $(aws ecr get-login --no-include-email --region $REGION)
     - docker build -t $REPOSITORY_URL:$CI_BUILD_REF -f Dockerfile .
     - docker push $REPOSITORY_URL
   only:
@@ -25,7 +26,7 @@ build:
 deploy:
   stage: deploy
   script:
-    - ecs-deploy -c plix-prodvideos --service-name plix-videos --min 0 --max 100 --image $REPOSITORY_URL:$CI_BUILD_REF  --timeout 240 --region us-east-1
+    - ecs-deploy -c plix-prodvideos --service-name plix-videos --min 0 --max 100 --image $REPOSITORY_URL:$CI_BUILD_REF  --timeout 240 --region $REGION
   only:
     - master
   tags:
