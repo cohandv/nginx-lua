@@ -14,7 +14,7 @@ stages:
 build:
   stage: build
   script:
-    - $(aws ecr get-login --no-include-email --region us-east-1)
+    - $(aws ecr get-login --no-include-email --region sa-east-1)
     - docker build -t $REPOSITORY_URL:$CI_BUILD_REF -f Dockerfile .
     - docker push $REPOSITORY_URL
   only:
