@@ -55,6 +55,7 @@ RUN cd /root \
 
 COPY lib $OPENRESTY_PREFIX/lualib
 COPY nginx $OPENRESTY_PREFIX/nginx/conf
+COPY nginx/index.html $OPENRESTY_PREFIX/nginx/html
 
 WORKDIR $NGINX_PREFIX/
 
