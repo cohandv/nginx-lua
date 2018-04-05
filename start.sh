@@ -1,3 +1,3 @@
-/usr/bin/nginx-nr-agent.py start &
-echo "pasas por aca?"
+service nginx-nr-agent start
+service nginx-nr-agent status
 nginx -g "daemon off; error_log /dev/stderr info;"

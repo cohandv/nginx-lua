@@ -8,8 +8,11 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends \
     curl perl make build-essential procps \
     libreadline-dev libncurses5-dev libpcre3-dev \
-    libssl-dev unzip nginx-nr-agent vim\
+    libssl-dev unzip nginx-nr-agent vim \
+    ca-certificates \
  && rm -rf /var/lib/apt/lists/*
+
+ RUN update-ca-certificates
 
 ENV OPENRESTY_VERSION 1.9.3.1
 ENV OPENRESTY_PREFIX /opt/openresty
