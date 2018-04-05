@@ -47,5 +47,4 @@ npm-debug.log
 
 # Other
 *.lua.swp
-lib/
 nginx-jwt.tar.gz

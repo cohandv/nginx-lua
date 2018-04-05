@@ -53,7 +53,7 @@ RUN cd /root \
  && ln -sf $OPENRESTY_PREFIX/luajit/bin/luajit-* /usr/local/bin/lua \
  && rm -rf /root/ngx_openresty*
 
-COPY lib $OPENRESTY_PREFIX/lualib
+COPY lib $OPENRESTY_PREFIX/nginx/lua
 COPY nginx $OPENRESTY_PREFIX/nginx/conf
 COPY nginx/index.html $OPENRESTY_PREFIX/nginx/html
 
