@@ -61,6 +61,7 @@ RUN cd /root \
 COPY lib $OPENRESTY_PREFIX/nginx/lua
 COPY nginx $OPENRESTY_PREFIX/nginx/conf
 COPY nginx/index.html $OPENRESTY_PREFIX/nginx/html
+COPY nginx/nginx-nr-agent.ini /etc/nginx-nr-agent/nginx-nr-agent.ini
 
 WORKDIR $NGINX_PREFIX/
 
