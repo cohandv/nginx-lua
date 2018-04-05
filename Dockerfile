@@ -1,10 +1,14 @@
 FROM ubuntu:16.04
 
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys ABF5BD827BD9BF62
+RUN echo deb http://nginx.org/packages/ubuntu/ xenial nginx >> /etc/apt/sources.list
+RUN echo deb-src http://nginx.org/packages/ubuntu/ xenial nginx >> /etc/apt/sources.list
+
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
     curl perl make build-essential procps \
     libreadline-dev libncurses5-dev libpcre3-dev \
-    libssl-dev unzip \
+    libssl-dev unzip nginx-nr-agent vim\
  && rm -rf /var/lib/apt/lists/*
 
 ENV OPENRESTY_VERSION 1.9.3.1
@@ -40,6 +44,7 @@ RUN cd /root \
     --without-http_uwsgi_module \
     --without-http_scgi_module \
     --without-http_memcached_module \
+    --with-http_stub_status_module \
     -j${NPROC} \
  && echo "==> Building OpenResty..." \
  && make -j${NPROC} \
@@ -59,4 +64,7 @@ COPY nginx/index.html $OPENRESTY_PREFIX/nginx/html
 
 WORKDIR $NGINX_PREFIX/
 
-CMD ["nginx", "-g", "daemon off; error_log /dev/stderr info;"]
+COPY start.sh $NGINX_PREFIX
+RUN chmod +x start.sh
+#CMD ["sleep","1000000"]
+CMD ["/bin/bash","/opt/openresty/nginx/start.sh"]
