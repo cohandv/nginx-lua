@@ -24,7 +24,7 @@ local M = {}
 
 function M.auth(claim_specs)
     -- require token request cookie
-    local token = ngx.var.cookie_Token
+    local token = ngx.var.cookie_StreamingToken
 
     if token == nil then
         ngx.log(ngx.WARN, "Missing token")
